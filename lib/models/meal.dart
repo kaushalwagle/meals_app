@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import 'category.dart';
-
 enum Affordability {
   affordable,
   expensive,
