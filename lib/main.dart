@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           1,
         ),
         accentColor: Color.fromRGBO(36, 170, 253, 1),
-        canvasColor: Colors.grey.shade200,
+        canvasColor: Color.fromRGBO(255, 221, 176, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
               bodyText1: TextStyle(color: Colors.grey.shade900),
