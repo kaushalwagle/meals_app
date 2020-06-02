@@ -8,7 +8,7 @@ class MealDetailScreen extends StatelessWidget {
   Widget _buildSectionTitle(BuildContext context, String text) {
     return Container(
       margin: EdgeInsets.symmetric(
-        vertical: 10,
+        vertical: 5,
       ),
       child: Text(
         text,
@@ -20,14 +20,13 @@ class MealDetailScreen extends StatelessWidget {
   Widget _buildContainer(BuildContext context, Widget child) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
         border: Border.all(color: Colors.grey),
         borderRadius: BorderRadius.circular(10),
       ),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
       height: 200,
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width - 25,
       child: child,
     );
   }
@@ -64,7 +63,10 @@ class MealDetailScreen extends StatelessWidget {
                         vertical: 5,
                         horizontal: 10,
                       ),
-                      child: Text(meal.ingredients[index],textAlign: TextAlign.center,),
+                      child: Text(
+                        meal.ingredients[index],
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   );
                 },
