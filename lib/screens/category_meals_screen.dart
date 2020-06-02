@@ -1,35 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:mealsapp/widgets/meal_item.dart';
 
+import '../models/meal.dart';
+import '../widgets/meal_item.dart';
 import '../data/dummy_data.dart';
 import '../widgets/meal_item.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
 
-//  final String id;
-//  final String title;
-//
-//  CategoryMealsScreen(this.id, this.title);
+  @override
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+  String categoryTitle;
+  List<Meal> displayedMeals;
+  bool _loadesInitData = false;
+
+  @override
+  void didChangeDependencies() {
+    if (!_loadesInitData) {
+      final routeArgs =
+          ModalRoute.of(context).settings.arguments as Map<String, String>;
+      final id = routeArgs['id'];
+      categoryTitle = routeArgs['title'];
+      displayedMeals =
+          DUMMY_MEALS.where((meal) => meal.categories.contains(id)).toList();
+      _loadesInitData = true;
+    }
+  }
+
+  void _removeMeal(String mealId) {
+    setState(() {
+      displayedMeals.removeWhere((meal) => meal.id == mealId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final id = routeArgs['id'];
-    final title = routeArgs['title'];
-
-    final categoryMeals =
-        DUMMY_MEALS.where((meal) => meal.categories.contains(id)).toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
-        itemCount: categoryMeals.length,
+        itemCount: displayedMeals.length,
         itemBuilder: (context, index) {
-          return MealItem(categoryMeals[index]);
+          return MealItem(
+            meal: displayedMeals[index],
+            removeItem: _removeMeal,
+          );
         },
       ),
     );
